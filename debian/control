@@ -1,0 +1,29 @@
+Source: sogo-connector
+Section: web
+Priority: optional
+Maintainer: Carsten Schoenert <c.schoenert@t-online.de>
+Build-Depends: debhelper (>= 9), mozilla-devscripts (>= 0.32~)
+Standards-Version: 3.9.5
+Homepage: http://www.sogo.nu/
+#Vcs-Git: git://git.debian.org/collab-maint/sogo-integrator.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/sogo-integrator.git;a=summary
+
+Package: xul-ext-sogo-connector
+Architecture: all
+Depends: ${misc:Depends}, ${xpi:Depends}
+Recommends: ${xpi:Recommends}
+Breaks: ${xpi:Breaks}
+Provides: ${xpi:Provides}
+Enhances: ${xpi:Enhances}
+Description: transforms Icedove into a full DAV client for groupware servers
+ The SOGo Connector makes Icedove to a full DAV client for any groupware
+ server like SOGo, OpenGroupware, Citadel or Owncloud.
+ The SOGo connector works through CardDAV so any application that provides
+ CardDAV functionality will work with the connector.
+ The connector provides
+  * Event organizers
+  * CardDAV implementation for the address book
+  * Support for WebDAV access control lists (ACL)
+  * Free / Busy URL field in the address book
+  * Free / Busy functionality through HTTP
+  * Synchronization of the address book using GroupDAV

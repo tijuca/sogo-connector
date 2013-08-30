@@ -1,0 +1,17 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+%:
+	dh $@ --with xul-ext
+
+override_dh_auto_build:
+	xpi-pack . xul-ext-sogo-connector.xpi
+
+override_dh_auto_install:
+	install-xpi xul-ext-sogo-connector.xpi
+
+override_dh_auto_clean:
+	rm -f xul-ext-sogo-connector.xpi
