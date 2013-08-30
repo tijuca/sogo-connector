@@ -1,0 +1,5 @@
+# See uscan(1) for format
+
+# Compulsory line, this is a version 3 file
+version=3
+ http://githubredir.debian.net/github/inverse-inc/sogo-connector.tb17/ sogo-connector-(\d\S*).tar.gz
