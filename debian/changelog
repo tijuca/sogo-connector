@@ -1,0 +1,6 @@
+sogo-connector (17.0.5-1) experimental; urgency=low
+
+  * Initial release (Closes: #692984)
+  * document changes and release 17.0.5-1
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Mon, 02 Sep 2013 18:12:29 +0200
