@@ -8,6 +8,10 @@
 	dh $@ --with xul-ext
 
 override_dh_auto_build:
+	# rebuilding the *.xpt file
+	cd components; \
+			make clean && make
+	rm components/Makefile
 	xpi-pack . xul-ext-sogo-connector.xpi
 
 override_dh_auto_install:
