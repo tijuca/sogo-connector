@@ -1,3 +1,14 @@
+sogo-connector (17.0.6-1) experimental; urgency=low
+
+  * Imported Upstream version 17.0.6
+  * debian/control: adding dependencie on icedove-dev and python-ply
+  * create possibility for rebuilding 'sogo-connector.xpt'
+  * debian/rules: force rebuild of the sogo-connector.xpt file
+  * debian/control: add build-dependecy
+  * document changes and release 17.0.6-1
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Fri, 29 Nov 2013 20:54:46 +0100
+
 sogo-connector (17.0.5-1) experimental; urgency=low
 
   * Initial release (Closes: #692984)
