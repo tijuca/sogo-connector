@@ -2,8 +2,12 @@ Source: sogo-connector
 Section: web
 Priority: optional
 Maintainer: Carsten Schoenert <c.schoenert@t-online.de>
-Build-Depends: debhelper (>= 9), mozilla-devscripts (>= 0.32~)
 Standards-Version: 3.9.5
+Build-Depends: debhelper (>= 9),
+  icedove-dev (>= 17~), icedove-dev (<< 18),
+  make (>=3.81~),
+  mozilla-devscripts (>= 0.32~),
+  python-ply
 Homepage: http://www.sogo.nu/
 #Vcs-Git: git://git.debian.org/collab-maint/sogo-integrator.git
 #Vcs-Browser: http://git.debian.org/?p=collab-maint/sogo-integrator.git;a=summary
