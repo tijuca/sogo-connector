@@ -1,9 +1,6 @@
 /* sogoWebDAV.js - This file is part of "SOGo Connector", a Thunderbird extension.
  *
- * Copyright: Inverse inc., 2006-2010
- *    Author: Robert Bolduc, Wolfgang Sourdeau
- *     Email: support@inverse.ca
- *       URL: http://inverse.ca
+ * Copyright: Inverse inc., 2006-2013
  *
  * "SOGo Connector" is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License version 2 as published by
@@ -72,8 +69,9 @@ XMLToJSONParser.prototype = {
                 let currentNode = node.childNodes[i];
                 let nodeName = currentNode.localName;
                 if (currentNode.nodeType
-                    == Components.interfaces.nsIDOMNode.TEXT_NODE)
+                    == Components.interfaces.nsIDOMNode.TEXT_NODE) {
                     textValue += currentNode.nodeValue;
+                }
                 else if (currentNode.nodeType
                          == Components.interfaces.nsIDOMNode.ELEMENT_NODE) {
                     hasElements = true;
@@ -365,17 +363,23 @@ _sogoWebDAVBadCertHandler.prototype = {
     }
 };
 
-function sogoWebDAV(url, target, data, synchronous) {
+function sogoWebDAV(url, target, data, synchronous, asJSON) {
     this.url = url;
     this.target = target;
     this.cbData = data;
-    this.requestJSONResponse = false;
-    this.requestXMLResponse = false;
     if (typeof synchronous == "undefined") {
         this.synchronous = false;
     }
     else {
         this.synchronous = synchronous;
+    }
+    
+    this.requestJSONResponse = false;
+    this.requestXMLResponse = false;
+
+    if (typeof asJSON != "undefined") {
+        this.requestJSONResponse = asJSON;
+        this.requestXMLResponse = !asJSON;
     }
 }
 
@@ -554,10 +558,29 @@ sogoWebDAV.prototype = {
         }
         else if (operation == "PUT" || operation == "POST") {
 	    if(parameters.contentType.indexOf("text/vcard") == 0) {
-                this._sendHTTPRequest(operation,
+                if (this.cbData.data.getProperty("groupDavKey", "") == "") {
+                    dump("NOTICE: uploading new vcard with empty key\n");
+                    this._sendHTTPRequest(operation,
                                       parameters.data,
                                       { "content-type": parameters.contentType,
 				        "If-None-Match": "*" });
+                }
+                else {
+                    let oldDavVersion = this.cbData.data.getProperty("groupDavVersionPrev", "-1");
+                    dump("NOTICE: uploading modified vcard with etag: " + oldDavVersion + "\n");
+                    if (oldDavVersion != "-1") {
+                        this._sendHTTPRequest(operation,
+                                              parameters.data,
+                                              { "content-type": parameters.contentType,
+				                "If-Match": oldDavVersion });
+                    }
+                    else {
+                        dump("NOTICE: uploading modified vcard without etag\n");
+	                this._sendHTTPRequest(operation,
+                                              parameters.data,
+                                              { "content-type": parameters.contentType });
+                    }
+                }
 	    }
 	    else {
 	        this._sendHTTPRequest(operation,
@@ -635,7 +658,6 @@ sogoWebDAV.prototype = {
         this.load("OPTIONS");
     },
     propfind: function(props, deep) {
-        this.requestJSONResponse = true;
         if (typeof deep == "undefined")
             deep = true;
         this.load("PROPFIND", {props: props, deep: deep});
@@ -652,7 +674,6 @@ sogoWebDAV.prototype = {
         this.load("REPORT", {query: query, deep: deep});
     },
     proppatch: function(query) {
-        this.requestJSONResponse = true;
         this.load("PROPPATCH", query);
     }
 };

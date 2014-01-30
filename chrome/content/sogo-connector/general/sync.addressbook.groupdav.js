@@ -1,7 +1,6 @@
 /* sync.addressbook.groupdav.js - This file is part of "SOGo Connector", a Thunderbird extension.
  *
- * Copyright: Inverse inc., 2006-2010
- *    Author: Robert Bolduc, Wolfgang Sourdeau
+ * Copyright: Inverse inc., 2006-2013
  *     Email: support@inverse.ca
  *       URL: http://inverse.ca
  *
@@ -276,7 +275,7 @@ GroupDavSynchronizer.prototype = {
         // 		dump("pendingOperations: " + this.pendingOperations + "\n");
         let data = {query: "server-check-propfind"};
         // 		dump("fillServerHashes (url): " + this.gURL + "\n");
-        let request = new sogoWebDAV(this.gURL, this, data);
+        let request = new sogoWebDAV(this.gURL, this, data, undefined, true);
         request.propfind(["DAV: resourcetype", "DAV: supported-report-set",
                           "http://calendarserver.org/ns/ getctag"], false);
     },
@@ -439,7 +438,7 @@ GroupDavSynchronizer.prototype = {
                 }
             }
         };
-        let request = new sogoWebDAV(url, target, null, true);
+        let request = new sogoWebDAV(url, target, null, true, true);
         request.requestJSONResponse = true;
         request.propfind(["DAV: getetag"], false);
 
@@ -862,7 +861,7 @@ GroupDavSynchronizer.prototype = {
         }
         else {
             let data = {query: "server-propfind"};
-            let request = new sogoWebDAV(this.gURL, this, data);
+            let request = new sogoWebDAV(this.gURL, this, data, undefined, true);
             request.propfind(["DAV: getcontenttype", "DAV: getetag"]);
         }
     },
@@ -920,6 +919,12 @@ GroupDavSynchronizer.prototype = {
 			      // eGroupware sends over, we just ignore it.
 			      if (typeof(prop["getcontenttype"]) == "undefined")
 				continue;
+
+                                // If the href ends with a '/' then we have recieved a collection in the response
+                                // This should be ignored, otherwise we end up with a empty key below.
+                                // This causes extra address book entries to be created. See Bug: 1411
+                                if (href.indexOf("/", href.length -1) !== -1)
+                                    continue;
 
 			        let contType = prop["getcontenttype"][0];
 
@@ -1374,7 +1379,7 @@ new:
         //     dump("finalize\n");
         if ((this.updatesStatus & SOGOC_UPDATES_CLIENTSIDE)) {
             let data = {query: "server-finalize-propfind"};
-            let request = new sogoWebDAV(this.gURL, this, data);
+            let request = new sogoWebDAV(this.gURL, this, data, undefined, true);
             request.propfind(["http://calendarserver.org/ns/ getctag"], false);
         }
         else {
