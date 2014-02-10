@@ -1,3 +1,14 @@
+sogo-connector (24.0.2-1) experimental; urgency=low
+
+  * Imported Upstream version 24.0.2
+  * debian/control: adjust build-dependency on icedove-dev 24.x
+  * debian/control: adjust dependency on iceowl-extension
+  * debian/watch: adjust watch file to version 24
+  * debian/gbp.conf: change default compression typ to xz
+  * document changes and release 24.0.2-1
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Thu, 30 Jan 2014 21:32:13 +0100
+
 sogo-connector (17.0.6-1) experimental; urgency=low
 
   * Imported Upstream version 17.0.6
