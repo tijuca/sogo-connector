@@ -1,3 +1,10 @@
+sogo-connector (24.0.4-1) experimental; urgency=medium
+
+  * debian/gbp.conf: Upstream tarball is gz
+  * Imported Upstream version 24.0.4
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Thu, 01 May 2014 13:05:13 +0200
+
 sogo-connector (24.0.2-1) experimental; urgency=low
 
   * Imported Upstream version 24.0.2
