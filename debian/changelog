@@ -1,3 +1,20 @@
+sogo-connector (24.0.5-1~bpo70+1) wheezy-backports; urgency=medium
+
+  [ Guido Günther ]
+  * [1996f37] Upstream tarball is bzip2
+
+  [ Carsten Schoenert ]
+  * Rebuild for wheezy-backports.
+  * [fcc31ea] debian/gbp.conf: Upstream tarball is gz
+  * [5d5185f] Imported Upstream version 24.0.4
+  * [22cf0c3] Revert "debian/control: adjust dependency on iceowl-extension"
+  * [556246f] debian/control: adding iceowl-extension to the recommends
+  * [b371640] debian/control: adding current Vcs fields
+  * [979c6a5] Imported Upstream version 24.0.5
+  * [3a38b1f] debian/gbp.conf: adjusting to wheezy-backport
+
+ -- Guido Günther <agx@sigxcpu.org>  Sun, 01 Jun 2014 20:48:46 +0200
+
 sogo-connector (24.0.2-1) experimental; urgency=low
 
   * Imported Upstream version 24.0.2
