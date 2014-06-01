@@ -9,8 +9,8 @@ Build-Depends: debhelper (>= 9),
   mozilla-devscripts (>= 0.32~),
   python-ply
 Homepage: http://www.sogo.nu/
-#Vcs-Git: git://git.debian.org/collab-maint/sogo-integrator.git
-#Vcs-Browser: http://git.debian.org/?p=collab-maint/sogo-integrator.git;a=summary
+Vcs-Git: https://github.com/tijuca/sogo-connector.git
+Vcs-Browser: https://github.com/tijuca/sogo-connector
 
 Package: xul-ext-sogo-connector
 Architecture: all
