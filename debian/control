@@ -15,7 +15,7 @@ Homepage: http://www.sogo.nu/
 Package: xul-ext-sogo-connector
 Architecture: all
 Depends: ${misc:Depends}, ${xpi:Depends}
-Recommends: ${xpi:Recommends}
+Recommends: ${xpi:Recommends}, iceowl-extension (>= 24~)
 Breaks: ${xpi:Breaks}
 Provides: ${xpi:Provides}
 Enhances: ${xpi:Enhances}
