@@ -1,6 +1,6 @@
 /* sync.addressbook.groupdav.js - This file is part of "SOGo Connector", a Thunderbird extension.
  *
- * Copyright: Inverse inc., 2006-2013
+ * Copyright: Inverse inc., 2006-2014
  *     Email: support@inverse.ca
  *       URL: http://inverse.ca
  *
@@ -64,11 +64,11 @@ let SOGOC_SYNC_STARTUP = 3;     // startup
 function loadNotificationsStrings() {
     var SOGO_Notifications_Strings = {};
 
-    let keys = ['notificationsTitle', 'notificationsUpload', 'notificationsUploads', 
-                'notificationsDownload', 'notificationsDownloads', 'notificationsDelete', 
+    let keys = ['notificationsTitle', 'notificationsFailure', 'notificationsFailures', 'notificationsUpload',
+                'notificationsUploads', 'notificationsDownload', 'notificationsDownloads', 'notificationsDelete', 
                 'notificationsDeletes', 'notificationsNoChanges' ];
     for (let i in keys) {
-        key = keys[i];
+        let key = keys[i];
         SOGO_Notifications_Strings[key] = SOGO_GetString(key);
     }
     return SOGO_Notifications_Strings;
@@ -84,7 +84,7 @@ function SOGO_GetString(key) {
      *   the value of property in the current language
      */
     let bundle = document.getElementById("sogoStringBundle");
-    dump("Bundle="+bundle);
+    //dump("Bundle="+bundle);
     if (bundle)
         return bundle.getString(key);
     else
@@ -165,16 +165,15 @@ GroupDavSynchronizer.prototype = {
     abortOngoingSync: function() {
         if (!this.context.apiDisabled) {
             this.initSyncVariables();
-            if (this.context.requests[this.gURL])
-            {
-              dump("*** a request is already active for url: " + this.gURL + " Abort...\n");
-              this.abort();
-              alert("Synchronization of address book was aborted.");
-              
+            if (this.context.requests[this.gURL]) {
+                dump("*** a request is already active for url: " + this.gURL + " Abort...\n");
+                this.abort();
+                alert("Synchronization of address book was aborted.");
             }
-            else
-              alert("Address book is not being synchronized. Nothing to abort.");
-              dump("*** a request not active for url: " + this.gURL + " Nothing to abort.\n");
+            else {
+                alert("Address book is not being synchronized. Nothing to abort.");
+                dump("*** a request not active for url: " + this.gURL + " Nothing to abort.\n");
+            }
         }
     },
     start: function() {
@@ -314,11 +313,11 @@ GroupDavSynchronizer.prototype = {
      *
      ***********************************************************/
     fillServerHashes: function() {
-        // 		dump("fillServerHashes\n");
+        //dump("fillServerHashes\n");
         this.pendingOperations = 1;
-        // 		dump("pendingOperations: " + this.pendingOperations + "\n");
+        //dump("pendingOperations: " + this.pendingOperations + "\n");
         let data = {query: "server-check-propfind"};
-        // 		dump("fillServerHashes (url): " + this.gURL + "\n");
+        //dump("fillServerHashes (url): " + this.gURL + "\n");
         let request = new sogoWebDAV(this.gURL, this, data, undefined, true);
         request.propfind(["DAV: resourcetype", "DAV: supported-report-set",
                           "http://calendarserver.org/ns/ getctag"], false);
@@ -341,7 +340,7 @@ GroupDavSynchronizer.prototype = {
         }
 
         if (!hasDownloads) {
-            dump("  no download needed\n");
+            //dump("  no download needed\n");
             this.pendingOperations--;
             //  			dump("decreasing 1 pendingOperations...\n");
             this.checkCallback();
@@ -373,23 +372,24 @@ GroupDavSynchronizer.prototype = {
     },
     onDAVQueryComplete: function(status, response, headers, data) {
         this.callbackCode = status;
-        //     dump("request status: " + status + "\n");
+        //dump("request status: " + status + "\n");
+
         if (data.query == "vcard-download")
             this.onCardDownloadComplete(status, response, data.data);
         else if (data.query == "list-download")
-        this.onListDownloadComplete(status, response, data.data);
+            this.onListDownloadComplete(status, response, data.data);
         else if (data.query == "server-check-propfind")
-        this.onServerCheckComplete(status, response);
+            this.onServerCheckComplete(status, response);
         else if (data.query == "server-propfind")
-        this.onServerHashQueryComplete(status, response);
+            this.onServerHashQueryComplete(status, response);
         else if (data.query == "server-sync-query")
-        this.onServerSyncQueryComplete(status, response);
+            this.onServerSyncQueryComplete(status, response);
         else if (data.query == "card-upload")
-        this.onCardUploadComplete(status, response, data.key, data.data, headers);
+            this.onCardUploadComplete(status, response, data.key, data.data, headers);
         else if (data.query == "list-upload")
-        this.onListUploadComplete(status, response, data.key, data.data, headers);
+            this.onListUploadComplete(status, response, data.key, data.data, headers);
         else if (data.query == "server-finalize-propfind")
-        this.onServerFinalizeComplete(status, response);
+            this.onServerFinalizeComplete(status, response);
         else
             throw("unknown query: " + data.query);
     },
@@ -511,9 +511,15 @@ GroupDavSynchronizer.prototype = {
                 dump("No etag returned for vcard uploaded at " + cardURL + ", ignored\n");
         }
         else {
+            let console = Components.classes["@mozilla.org/consoleservice;1"]
+                .getService(Components.interfaces.nsIConsoleService);
+
             this.appendFailure(status, card);
-            dump("Upload failure uploading card: " + cardURL
-                 + ".\nHTTP Status Code:" + status + "\n");
+            this.localUploads--;
+
+
+            console.logStringMessage("Upload failure uploading card: " + cardURL
+                                     + ".\nHTTP Status Code:" + status + "\n" + this.cardToString(card));
         }
 
         this.progressMgr.updateAddressBook(this.gURL);
@@ -733,9 +739,14 @@ GroupDavSynchronizer.prototype = {
                 dump("  No etag returned for vlist uploaded at " + listURL + ", ignored\n");
         }
         else {
+            let console = Components.classes["@mozilla.org/consoleservice;1"]
+                .getService(Components.interfaces.nsIConsoleService);
+
             this.appendFailure(status, list);
-            dump("Upload failure uploading list: " + listURL
-                 + ".\nHTTP Status Code:" + status + "\n");
+            this.localUploads--;
+
+            console.logStringMessage("Upload failure uploading list: " + listURL
+                                     + ".\nHTTP Status Code:" + status + "\n" + this.cardToString(list));
         }
 
         this.progressMgr.updateAddressBook(this.gURL);
@@ -784,7 +795,27 @@ GroupDavSynchronizer.prototype = {
 
         return href;
     },
+    //
+    // We check for URLs equality. If both HREF aren't identical, we then
+    // compare the host part and the last path component in order to avoid
+    // scenarios where we try to compare:
+    //
+    // http://sogo/SOGo/dav/sogo1/Contacts/personal and http://sogo/SOGo/dav/sogo1@example.com/Contacts/personal
+    //
+    // This is due to (generally) broken configurations in SOGo. Lightning does a similar trick, see:
+    //
+    // http://mxr.mozilla.org/comm-central/source/calendar/providers/caldav/calDavCalendar.js#1028
+    //
+    URLsAreEqual: function(href1, href2) {
+        if (href1 == href2)
+            return true;
+        
+        let resPathComponents1 = href1.split("/");
+        let resPathComponents2 = href2.split("/");
 
+        return ((resPathComponents1[2] == resPathComponents2[2]) &&
+                (resPathComponents1[resPathComponents1.length-2] == resPathComponents2[resPathComponents2.length-2]));
+    },
     /* The right way... */
     _detectWebdavSyncInSupportedReports: function(supportedReports) {
         let i = 0;
@@ -825,9 +856,10 @@ GroupDavSynchronizer.prototype = {
 
     onServerCheckComplete: function(status, jsonResponse) {
         this.pendingOperations = 0;
-        // 		dump("pendingOperations: " + this.pendingOperations + "\n");
-        //  		dump("status: " + status + "\n");
-        //  		dump("jsonResponse: " + jsonResponse + "\n");
+        
+        //dump("pendingOperations: " + this.pendingOperations + "\n");
+        //dump("status: " + status + "\n");
+        //dump("jsonResponse: " + jsonResponse + "\n");
 
         if (status > 199 && status < 400 && jsonResponse) {
             let responses = jsonResponse["multistatus"][0]["response"];
@@ -842,7 +874,7 @@ GroupDavSynchronizer.prototype = {
                             href = this.cleanedUpHref(href);
 
                         let prop = propstat["prop"][0];
-                        if (href == this.gURL) {
+                        if (this.URLsAreEqual(href,this.gURL)) {
                             let rsrcType = prop["resourcetype"][0];
                             if (rsrcType["vcard-collection"]
                                 || rsrcType["addressbook"]) {
@@ -878,7 +910,7 @@ GroupDavSynchronizer.prototype = {
                     }
                 }
             }
-        }
+        } // if (status > 199 && status < 400 && jsonResponse) {
         else {
             setTimeout("throw new Error('Address book synchronzation could not contact server.')",0); 
             this.abort();
@@ -1468,7 +1500,7 @@ new:
                             href = this.cleanedUpHref(href);
 
                         let prop = propstat["prop"][0];
-                        if (href == this.gURL) {
+                        if (this.URLsAreEqual(href,this.gURL)) {
                             let newCTag = prop["getctag"][0];
                             if (newCTag) {
                                 let groupdavPrefService = this.prefService();
@@ -1488,13 +1520,14 @@ new:
         }
     },
     checkCallback: function() {
-        // 		dump("checkCallback:\n");
-        // 		dump("\n\nthis = " + this.mCounter + "\n");
-        // 		dump("  this.processMode: " + this.processMode + "\n");
-        // 		dump("  this.pendingOperations: " + this.pendingOperations + "\n");
-        // 		dump("  this.updatesStatus: " + this.updatesStatus + "\n");
-        // 		dump("_checkCallback: processMode: " + this.processMode + "\n");
-        // 		dump("_checkCallback: pendingOperations: " + this.pendingOperations + "\n");
+        //dump("checkCallback:\n");
+        //dump("\n\nthis = " + this.mCounter + "\n");
+        //dump("  this.processMode: " + this.processMode + "\n");
+        //dump("  this.pendingOperations: " + this.pendingOperations + "\n");
+        //dump("  this.updatesStatus: " + this.updatesStatus + "\n");
+        //dump("_checkCallback: processMode: " + this.processMode + "\n");
+        //dump("_checkCallback: pendingOperations: " + this.pendingOperations + "\n");
+        
         if (this.pendingOperations < 0) {
             this.context.requests[this.gURL] = null;
             throw "Buggy situation! (pendingOperations < 0)";
@@ -1536,17 +1569,24 @@ new:
     },
 
     // Debug helpers
-    dumpCard: function(card) {
-        dump("  * card properties:\n");
+    cardToString: function(card) {
+        let s = "  * card properties:\n";
         let props = card.properties;
         let count = 0;
         while (props.hasMoreElements()) {
             let prop = props.getNext().QueryInterface(Components.interfaces.nsIProperty);
-            dump("  " + count + ") prop: " + prop + ";  name: " + prop.name + "; value: " + prop.value + "\n");
+            s = (s + "  " + count + " prop: " + prop + ";  name: " + prop.name + "; value: " + prop.value + "\n");
             count++;
         }
-        dump("  * done\n");
+        s = s + "  * done\n";
+
+        return s;
     },
+    
+    dumpCard: function(card) {
+        dump(this.cardToString(card));
+    },
+
     dumpCardNames: function() {
         let cards = this.gAddressBook.childCards;
         dump("  * card list\n");
@@ -1564,6 +1604,7 @@ new:
         }
         dump("  * done\n");
     },
+
     dumpDeletedCards: function() {
         let cards = this.gAddressBook.QueryInterface(Components.interfaces.nsIAbMDBDirectory).database.deletedCardList;
         dump("  * " + cards.length + " deleted cards\n");
@@ -1571,7 +1612,7 @@ new:
             dump("    card: " + cards.queryElementAt(i, Components.interfaces.nsIAbCard) + "\n");
         }
     }
-};
+}; // GroupDavSynchronizer.prototype = {
 
 
 function GetSyncNotifyGroupdavAddressbook(uri, ab, origin) {
@@ -1668,23 +1709,36 @@ function GetSyncNotifyGroupdavAddressbook(uri, ab, origin) {
             let total = (cbData.synchronizer.localUploads
                          + cbData.synchronizer.serverDownloadsCount
                          + cbData.synchronizer.serverDeletes.length);
+            let failures = cbFailures["403"];
+
+            if (failures)
+                total += failures.length;
+
             if (total > 0) {
                 texte = "";
-                if( cbData.synchronizer.localUploads <= 1)
+                
+                if (failures) {
+                    if (failures.length <= 1)
+                        texte += (failures.length + " " + cbData.notificationsStrings['notificationsFailure']);
+                    else
+                        texte += (failures.length + " " + cbData.notificationsStrings['notificationsFailures']);
+                }
+                
+                if (cbData.synchronizer.localUploads <= 1)
                     texte += cbData.synchronizer.localUploads+cbData.notificationsStrings['notificationsUpload'];
-                if( cbData.synchronizer.localUploads > 1)
+                if (cbData.synchronizer.localUploads > 1)
                     texte += cbData.synchronizer.localUploads+cbData.notificationsStrings['notificationsUploads'];
 
-                if( cbData.synchronizer.serverDownloadsCount <= 1)
+                if (cbData.synchronizer.serverDownloadsCount <= 1)
                     texte += cbData.synchronizer.serverDownloadsCount+cbData.notificationsStrings['notificationsDownload'];
-                if( cbData.synchronizer.serverDownloadsCount > 1)
+                if (cbData.synchronizer.serverDownloadsCount > 1)
                     texte += cbData.synchronizer.serverDownloadsCount+cbData.notificationsStrings['notificationsDownloads'];
 
-                if( cbData.synchronizer.serverDeletes <= 1)
+                if (cbData.synchronizer.serverDeletes <= 1)
                     texte += cbData.synchronizer.serverDeletes.length+cbData.notificationsStrings['notificationsDelete'];
-                if( cbData.synchronizer.serverDeletes > 1)
+                if (cbData.synchronizer.serverDeletes > 1)
                     texte += cbData.synchronizer.serverDeletes.length+cbData.notificationsStrings['notificationsDeletes'];
-                
+               
             } else {
                 texte = cbData.notificationsStrings['notificationsNoChanges'];
             }
@@ -1733,19 +1787,6 @@ function GetSyncNotifyGroupdavAddressbook(uri, ab, origin) {
 }
 
 function SynchronizeGroupdavAddressbook(uri, callback, origin) {
-    /*
-     * old version
-     * 
-    // dump("sync uri: " + uri + "\n");
-    let synchronizer = new GroupDavSynchronizer(uri);
-    // dump("callback:" + callback + "\n");
-    // dump("callbackData:" + callbackData + "\n");
-    synchronizer.callback = callback;
-    synchronizer.callbackData = callbackData;
-    synchronizer.start();
-    */
-
-    // new version with sync
     var sync = GetSyncNotifyGroupdavAddressbook(uri, null, origin);
     sync.notify();
     
