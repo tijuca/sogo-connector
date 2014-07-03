@@ -2,28 +2,58 @@ Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: sogo-connector
 Source: http://www.sogo.nu/english/downloads/backend.html
 
+License: GPL-2.0
+ On Debian systems, the complete text of the GNU General
+ Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".
+
+License: GPL-2.0+
+ On Debian systems, the complete text of the GNU General
+ Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".
+
+License: LGPL-2.1
+ On Debian systems, the complete text of the GNU General
+ Public License version 2 can be found in "/usr/share/common-licenses/LGPL-2.1".
+
+License: MPL-1.1
+ The complete text of the Mozilla Public License can be found in
+ the `MPL' file in the same directory as this file.
+
 Files: *
 Copyright: 2008-2012 inversa.ca
            2013      sogo.nu
+License: GPL-2.0
+
+Files: chrome/locale/it-IT/sogo-connector/addressbook/abEditCardDialog.groupdav.overlay.dtdn
+       chrome/locale/it-IT/sogo-connector/addressbook/ca.inverse.abMainWindow.groupdav.dtdn
+       chrome/locale/it-IT/sogo-connector/addressbook/deletefailure-dialog.dtdn
+       chrome/locale/it-IT/sogo-connector/addressbook/lightning-missing.dtdn
+       chrome/locale/it-IT/sogo-connector/addressbook/pref-directory-add.dtdn
+Copyright: Marco Lertora <marco.lertora@infoporto.it>
+License: GPL-2.0
+
+Files: chrome/content/inverse-library/uuid.js
+Copyright: 2006-2008, Erik Giberti (AF-Design)
 License: GPL-2.0+
+
+Files: components/CalDAVACLManager.js
+       chrome/locale/cs-CZ/sogo-connector/addressbook/pref-directory-add.dtd
+       chrome/locale/en-US/sogo-connector/addressbook/pref-directory-add.dtd
+       chrome/locale/fr-FR/sogo-connector/addressbook/pref-directory-add.dtd
+       chrome/locale/hu-HU/sogo-connector/addressbook/pref-directory-add.dtd
+       chrome/locale/nl-NL/sogo-connector/addressbook/pref-directory-add.dtd
+Copyright: 2008-2012 inversa.ca
+           2013      sogo.nu
+License: MPL-1.1 or GPL-2.0 or LGPL-2.1
+
+Files: chrome/locale/it-IT/sogo-connector/addressbook/abEditCardDialog.groupdav.overlay.dtd
+       chrome/locale/it-IT/sogo-connector/addressbook/ca.inverse.abMainWindow.groupdav.dtd
+       chrome/locale/it-IT/sogo-connector/addressbook/deletefailure-dialog.dtd
+       chrome/locale/it-IT/sogo-connector/addressbook/lightning-missing.dtd
+       chrome/locale/it-IT/sogo-connector/addressbook/pref-directory-add.dtd
+       chrome/locale/it-IT/sogo-connector/calendar/calendar-event-dialog.dtd
+Copyright: Infoporto La Spezia Srl, 2008
+License: GPL-2.0
 
 Files: debian/*
-Copyright: 2013 Carsten Schoenert <c.schoenert@t-online.de>
+Copyright: 2013-2014 Carsten Schoenert <c.schoenert@t-online.de>
 License: GPL-2.0+
-
-License: GPL-2.0+
- This package is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
- .
- This package is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
- .
- You should have received a copy of the GNU General Public License
- along with this program. If not, see <http://www.gnu.org/licenses/>
- .
- On Debian systems, the complete text of the GNU General
- Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".
