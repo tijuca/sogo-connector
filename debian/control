@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Carsten Schoenert <c.schoenert@t-online.de>
 Standards-Version: 3.9.5
 Build-Depends: debhelper (>= 9),
-  icedove-dev (>= 24~), icedove-dev (<< 25),
+  icedove-dev (>= 24~),
   make (>=3.81~),
   mozilla-devscripts (>= 0.32~),
   python-ply
