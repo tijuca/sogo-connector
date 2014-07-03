@@ -1,3 +1,23 @@
+sogo-connector (24.0.5-1) experimental; urgency=medium
+
+  [ Guido Günther ]
+  * Upstream tarball is bzip2
+
+  [ Carsten Schoenert ]
+  * debian/gbp.conf: Upstream tarball is gz
+  * Imported Upstream version 24.0.4
+  * Revert "debian/control: adjust dependency on iceowl-extension"
+  * debian/control: adding iceowl-extension to the recommends
+  * debian/control: adding current Vcs fields
+  * Imported Upstream version 24.0.5
+  * debian/MPL-1.1: adding Mozilla MPL-1.1 license
+  * debian/control: removing b-d on maxVersion for icedove-dev
+  * debian/copyright: rework the whole copyright file
+  * debian/docs: adding some already shipped doc files
+  * lintian: adding a override for wrong complained issue
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Thu, 03 Jul 2014 21:22:13 +0200
+
 sogo-connector (24.0.2-1) experimental; urgency=low
 
   * Imported Upstream version 24.0.2
