@@ -1,3 +1,10 @@
+sogo-connector (24.0.6-1) experimental; urgency=medium
+
+  * Imported Upstream version 24.0.6
+  * debian/copyright: reflect recent changes by upstream
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Sun, 03 Aug 2014 21:57:21 +0200
+
 sogo-connector (24.0.5-1) experimental; urgency=medium
 
   [ Guido Günther ]
