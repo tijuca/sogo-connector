@@ -42,7 +42,7 @@ Files: components/CalDAVACLManager.js
        chrome/locale/hu-HU/sogo-connector/addressbook/pref-directory-add.dtd
        chrome/locale/nl-NL/sogo-connector/addressbook/pref-directory-add.dtd
 Copyright: 2008-2012 inversa.ca
-           2013      sogo.nu
+           2013-2014 sogo.nu
 License: MPL-1.1 or GPL-2.0 or LGPL-2.1
 
 Files: chrome/locale/it-IT/sogo-connector/addressbook/abEditCardDialog.groupdav.overlay.dtd
