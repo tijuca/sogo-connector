@@ -54,6 +54,33 @@ Files: chrome/locale/it-IT/sogo-connector/addressbook/abEditCardDialog.groupdav.
 Copyright: Infoporto La Spezia Srl, 2008
 License: GPL-2.0
 
+Files: chrome/content/sogo-connector/calendar/calendar-invitations-list.xml
+Copyright: 2006 Sun Microsystems
+           Thomas Benisch <thomas.benisch@sun.com>
+           Philipp Kewisch <mozilla@kewis.ch>
+           Martin Schroeder <mschroeder@mozilla.x-home.org>
+           Simon Vaillancourt <simon.at.orcl@gmail.com>
+License: MPL-1.1 or GPL-2.0 or LGPL-2.1
+
+Files: chrome/content/sogo-connector/calendar/calendar-invitations-dialog.xul
+Copyright: 2006 Sun Microsystems
+           Thomas Benisch <thomas.benisch@sun.com>
+License: MPL-1.1 or GPL-2.0 or LGPL-2.1
+
+Files: chrome/content/sogo-connector/addressbook/preferences.addressbook.groupdav.xul
+Copyright: 1998-1999 Netscape Communications Corporation
+           Srilatha Moturi <srilatha@netscape.com>, original implementor
+           Håkan Waara <hwaara@chello.se>
+           Dan Mosedale <dmose@netscape.com>
+           2006 Inversa info@inverse.ca
+License: MPL-1.1 or GPL-2.0 or LGPL-2.1
+
+
+Files: components/SOGoConnectorAutocompleteSearch.js
+Copyright: 2008 Mozilla Corporation
+           2010 Inversa info@inverse.ca
+License: MPL-1.1 or GPL-2.0 or LGPL-2.1
+
 Files: debian/*
 Copyright: 2013-2014 Carsten Schoenert <c.schoenert@t-online.de>
 License: GPL-2.0+
