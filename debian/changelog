@@ -1,3 +1,10 @@
+sogo-connector (24.0.6-2) experimental; urgency=medium
+
+  * debian/copyright: adding more files
+      Thanks Thorsten Alteholz for pointing!
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Sat, 13 Sep 2014 19:35:22 +0200
+
 sogo-connector (24.0.6-1) experimental; urgency=medium
 
   * Imported Upstream version 24.0.6
