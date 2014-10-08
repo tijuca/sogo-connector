@@ -1,3 +1,11 @@
+sogo-connector (24.0.6-3) experimental; urgency=medium
+
+  * debian/control: adding dep on iceowl-extension > 31
+  * linitan: bump up standards version to 3.9.6
+  * debian/control: adding Christoph as uploader
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Wed, 08 Oct 2014 20:34:25 +0200
+
 sogo-connector (24.0.6-2) experimental; urgency=medium
 
   * debian/copyright: adding more files
