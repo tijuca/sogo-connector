@@ -14,8 +14,8 @@ Vcs-Browser: https://github.com/tijuca/sogo-connector
 
 Package: xul-ext-sogo-connector
 Architecture: all
-Depends: ${misc:Depends}, ${xpi:Depends}
-Recommends: ${xpi:Recommends}, iceowl-extension (>= 24~)
+Depends: ${misc:Depends}, ${xpi:Depends}, iceowl-extension (>= 31~)
+Recommends: ${xpi:Recommends}
 Breaks: ${xpi:Breaks}
 Provides: ${xpi:Provides}
 Enhances: ${xpi:Enhances}
