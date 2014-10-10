@@ -1,3 +1,9 @@
+sogo-connector (24.0.7-1) unstable; urgency=medium
+
+  * Imported Upstream version 24.0.7
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Fri, 10 Oct 2014 08:51:28 +0200
+
 sogo-connector (24.0.6-3) experimental; urgency=medium
 
   * debian/control: adding dep on iceowl-extension > 31
