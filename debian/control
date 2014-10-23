@@ -10,8 +10,8 @@ Build-Depends: debhelper (>= 9),
   mozilla-devscripts (>= 0.32~),
   python-ply
 Homepage: http://www.sogo.nu/
-Vcs-Git: https://github.com/tijuca/sogo-connector.git
-Vcs-Browser: https://github.com/tijuca/sogo-connector
+Vcs-Git: git://anonscm.debian.org/pkg-mozext/sogo-connector.git
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-mozext/sogo-connector.git;a=summary
 
 Package: xul-ext-sogo-connector
 Architecture: all
