@@ -1,3 +1,12 @@
+sogo-connector (31.0.0-1) unstable; urgency=medium
+
+  * debian/control: changing Vcs URL's to Alioth
+  * debian/watch: switch to new upstream version 31
+  * Imported Upstream version 31.0.0
+  * rebuild patch queue from patch-queue branch
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Tue, 28 Oct 2014 19:22:22 +0100
+
 sogo-connector (24.0.7-1) unstable; urgency=medium
 
   * Imported Upstream version 24.0.7
