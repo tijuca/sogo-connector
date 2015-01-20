@@ -19,7 +19,7 @@ License: MPL-1.1
  the `MPL' file in the same directory as this file.
 
 Files: *
-Copyright: 2008-2012 inversa.ca
+Copyright: 2008-2014 inverse.ca
            2013      sogo.nu
 License: GPL-2.0
 
@@ -41,7 +41,7 @@ Files: components/CalDAVACLManager.js
        chrome/locale/fr-FR/sogo-connector/addressbook/pref-directory-add.dtd
        chrome/locale/hu-HU/sogo-connector/addressbook/pref-directory-add.dtd
        chrome/locale/nl-NL/sogo-connector/addressbook/pref-directory-add.dtd
-Copyright: 2008-2012 inversa.ca
+Copyright: 2008-2012 inverse.ca
            2013-2014 sogo.nu
 License: MPL-1.1 or GPL-2.0 or LGPL-2.1
 
@@ -72,13 +72,13 @@ Copyright: 1998-1999 Netscape Communications Corporation
            Srilatha Moturi <srilatha@netscape.com>, original implementor
            Håkan Waara <hwaara@chello.se>
            Dan Mosedale <dmose@netscape.com>
-           2006 Inversa info@inverse.ca
+           2006 Inverse info@inverse.ca
 License: MPL-1.1 or GPL-2.0 or LGPL-2.1
 
 
 Files: components/SOGoConnectorAutocompleteSearch.js
 Copyright: 2008 Mozilla Corporation
-           2010 Inversa info@inverse.ca
+           2010 Inverse info@inverse.ca
 License: MPL-1.1 or GPL-2.0 or LGPL-2.1
 
 Files: debian/*
