@@ -1,3 +1,12 @@
+sogo-connector (31.0.2-1) unstable; urgency=medium
+
+  * Imported Upstream version 31.0.2
+  * debian/copyright: small adjustments
+  * debian/gbp.conf: respect new git-buildpackage behaviour
+  * rebuild patch queue from patch-queue branch
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Tue, 12 Jan 2016 20:37:18 +0100
+
 sogo-connector (31.0.1-1) unstable; urgency=medium
 
   * debian/watch: switching to new scanning URL
