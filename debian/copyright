@@ -23,14 +23,6 @@ Copyright: 2008-2014 inverse.ca
            2013      sogo.nu
 License: GPL-2.0
 
-Files: chrome/locale/it-IT/sogo-connector/addressbook/abEditCardDialog.groupdav.overlay.dtdn
-       chrome/locale/it-IT/sogo-connector/addressbook/ca.inverse.abMainWindow.groupdav.dtdn
-       chrome/locale/it-IT/sogo-connector/addressbook/deletefailure-dialog.dtdn
-       chrome/locale/it-IT/sogo-connector/addressbook/lightning-missing.dtdn
-       chrome/locale/it-IT/sogo-connector/addressbook/pref-directory-add.dtdn
-Copyright: Marco Lertora <marco.lertora@infoporto.it>
-License: GPL-2.0
-
 Files: chrome/content/inverse-library/uuid.js
 Copyright: 2006-2008, Erik Giberti (AF-Design)
 License: GPL-2.0+
@@ -51,7 +43,7 @@ Files: chrome/locale/it-IT/sogo-connector/addressbook/abEditCardDialog.groupdav.
        chrome/locale/it-IT/sogo-connector/addressbook/lightning-missing.dtd
        chrome/locale/it-IT/sogo-connector/addressbook/pref-directory-add.dtd
        chrome/locale/it-IT/sogo-connector/calendar/calendar-event-dialog.dtd
-Copyright: Infoporto La Spezia Srl, 2008
+Copyright: Infoporto La Spezia Srl, 2008 marco.lertora@infoporto.it
 License: GPL-2.0
 
 Files: chrome/content/sogo-connector/calendar/calendar-invitations-list.xml
