@@ -251,6 +251,7 @@ GroupDavSynchronizer.prototype = {
                     // this.dumpCard(card);
                     dump("  new card '" + card.displayName + "' will be uploaded\n");
                     key = new UUID() + ".vcf";
+                    card.setProperty(kNameKey, key);
                     this.localCardUploads[key] = card;
                     uploads++;
                 }
@@ -335,7 +336,7 @@ GroupDavSynchronizer.prototype = {
                 let data = {query: "vcard-download", data: key};
                 this.remainingDownloads++;
                 let request = new sogoWebDAV(fileUrl, this, data);
-                request.get();
+                request.get("text/vcard");
             }
         }
 
@@ -360,7 +361,7 @@ GroupDavSynchronizer.prototype = {
                 let data = {query: "list-download", data: key};
                 this.remainingDownloads++;
                 let request = new sogoWebDAV(fileUrl, this, data);
-                request.get();
+                request.get("text/vcard");
             }
         }
 
@@ -411,10 +412,11 @@ GroupDavSynchronizer.prototype = {
     onCardDownloadComplete: function(status, data, key) {
         this.remainingDownloads--;
         this.progressMgr.updateAddressBook(this.gURL);
+        let pos;
         if (Components.isSuccessCode(status)
             && data
-            && (data.toLowerCase().indexOf("begin:vcard") == 0))
-            this.importCard(key, data);
+            && ((pos = data.toLowerCase().indexOf("begin:vcard")) >= 0))
+            this.importCard(key, data.substr(pos));
         else
             this.appendFailure(status, key);
 
@@ -427,10 +429,11 @@ GroupDavSynchronizer.prototype = {
     onListDownloadComplete: function(status, data, key) {
         this.remainingDownloads--;
         this.progressMgr.updateAddressBook(this.gURL);
+        let pos;
         if (Components.isSuccessCode(status)
             && data
-            && (data.toLowerCase().indexOf("begin:vlist") == 0))
-            this.importList(key, data);
+            && ((pos = data.toLowerCase().indexOf("begin:vlist")) >= 0))
+            this.importList(key, data.substr(pos));
         else
             this.appendFailure(status, key);
         if (this.remainingDownloads == 0) {
@@ -600,38 +603,39 @@ GroupDavSynchronizer.prototype = {
                 else
                 {
                     // List of all card properties which may be deleted e.g., via web interface
-                    deleteableProp = ['HomeAddress'        ,
-                                      'WorkCity'           ,
-                                      'FaxNumber'          ,
-                                      'Company'            ,
-                                      'HomeAddress2'       ,
-                                      'HomeCity'           ,
-                                      'WorkCountry'        ,
-                                      'WorkZipCode'        ,
-                                      'HomeCountry'        ,
-                                      'BirthYear'          ,
-                                      'CellularNumber'     ,
-                                      'FirstName'          ,
-                                      'Notes'              ,
-                                      'WorkState'          ,
-                                      'LastName'           ,
-                                      'HomeState'          ,
-                                      'PrimaryEmail'       ,
-                                      'BirthDay'           ,
-                                      'WebPage2'           ,
-                                      'WorkAddress2'       ,
-                                      'BirthMonth'         ,
-                                      'Categories'         ,
-                                      'NickName'           ,
-                                      'WorkAddress'        ,
-                                      'HomeZipCode',
-                                      'WebPage1',
-                                      'WorkPhone',
-                                      '_AimScreenName',
-                                      'PagerNumber',
-                                      'SecondEmail',
-                                      'HomePhone'
-                                      ];
+                    let deleteableProp = [
+                        'HomeAddress'        ,
+                        'WorkCity'           ,
+                        'FaxNumber'          ,
+                        'Company'            ,
+                        'HomeAddress2'       ,
+                        'HomeCity'           ,
+                        'WorkCountry'        ,
+                        'WorkZipCode'        ,
+                        'HomeCountry'        ,
+                        'BirthYear'          ,
+                        'CellularNumber'     ,
+                        'FirstName'          ,
+                        'Notes'              ,
+                        'WorkState'          ,
+                        'LastName'           ,
+                        'HomeState'          ,
+                        'PrimaryEmail'       ,
+                        'BirthDay'           ,
+                        'WebPage2'           ,
+                        'WorkAddress2'       ,
+                        'BirthMonth'         ,
+                        'Categories'         ,
+                        'NickName'           ,
+                        'WorkAddress'        ,
+                        'HomeZipCode',
+                        'WebPage1',
+                        'WorkPhone',
+                        '_AimScreenName',
+                        'PagerNumber',
+                        'SecondEmail',
+                        'HomePhone'
+                        ];
                     if (deleteableProp.indexOf(propName) == -1) {
                         dump("  Property "+propName+" is not deletable. Ignore.\n");
                     }
@@ -641,7 +645,7 @@ GroupDavSynchronizer.prototype = {
                            search for all properties in new card if current propName is still available.
                            If not, remove propName from oldCard. */
                         let allNewCardProperties = card.properties;
-                        propertyStillAvailable = false;
+                        let propertyStillAvailable = false;
                         while (allNewCardProperties.hasMoreElements()) {
                             let propNew = allNewCardProperties.getNext().QueryInterface(Components.interfaces.nsIProperty);
                             let propNameNew = String(propNew.name);
@@ -670,6 +674,7 @@ GroupDavSynchronizer.prototype = {
             dump("  new card\n");
             this.gAddressBook.addCard(card);
             this.localCardPointerHash[key] = card;
+            this.localCardVersionHash[key] = card.getProperty(kETagKey, "-1");
         }
     },
     importList: function(key, data) {
@@ -1734,9 +1739,9 @@ function GetSyncNotifyGroupdavAddressbook(uri, ab, origin) {
                 if (cbData.synchronizer.serverDownloadsCount > 1)
                     texte += cbData.synchronizer.serverDownloadsCount+cbData.notificationsStrings['notificationsDownloads'];
 
-                if (cbData.synchronizer.serverDeletes <= 1)
+                if (cbData.synchronizer.serverDeletes.length <= 1)
                     texte += cbData.synchronizer.serverDeletes.length+cbData.notificationsStrings['notificationsDelete'];
-                if (cbData.synchronizer.serverDeletes > 1)
+                if (cbData.synchronizer.serverDeletes.length > 1)
                     texte += cbData.synchronizer.serverDeletes.length+cbData.notificationsStrings['notificationsDeletes'];
                
             } else {

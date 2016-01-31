@@ -1,6 +1,15 @@
 NEWS
 ====
 
+31.0.2  Completed German translation - patch from Johann Tree
+        Fix notification in case of server side deletes
+        Add version to localCardVersionHash for new card
+        Set groupDavKey before uploading card 
+        Strip off header lines downloading cards or lists
+        Fix warnings in strict mode
+
+31.0.1  Fix for bug #3042
+
 31.0.0  Initial import for Thunderbird 31 and applied fix for bug #2870
 	Added patch from bug #2922
 	Fixed Hungarian translation (#2888)
