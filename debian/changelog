@@ -1,3 +1,16 @@
+sogo-connector (31.0.2-1~bpo70+1) wheezy-backports; urgency=medium
+
+  * Imported Upstream version 31.0.1
+  * Imported Upstream version 31.0.2
+  * debian/watch: switching to new scanning URL
+  * debian/copyright: adopt and fix copyright holder
+  * debian/copyright: small adjustments related to upstream changes
+  * debian/gbp.conf: respect new git-buildpackage behaviour
+  * rebuild patch queue from patch-queue branch
+  * debian/copyright: various adjusts of the Vcs field
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Mon, 01 Feb 2016 18:01:56 +0100
+
 sogo-connector (31.0.0-1~bpo70+1) wheezy-backports; urgency=medium
 
   * Rebuild for wheezy-backports.
