@@ -1,3 +1,11 @@
+sogo-connector (31.0.2-1~bpo8+1) jessie-backports; urgency=medium
+
+  * Rebuild for jessie-backports.
+  * various adjusts of the Vcs field
+  * debian/gbp.conf: adjust to jessie-backports
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Mon, 01 Feb 2016 18:38:46 +0100
+
 sogo-connector (31.0.2-1) unstable; urgency=medium
 
   * Imported Upstream version 31.0.2
