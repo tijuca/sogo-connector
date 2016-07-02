@@ -1,3 +1,13 @@
+sogo-connector (31.0.3-1) unstable; urgency=medium
+
+  * debian/control: increase B-D for mozilla-devscripts
+  * linitan: bump up standards version to 3.9.8
+  * debian/control: adding lightning as additional dependency
+  * debian/gbp.conf: additional filter for files while import
+  * Imported Upstream version 31.0.3
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Sat, 02 Jul 2016 20:13:12 +0200
+
 sogo-connector (31.0.2-1~bpo8+1) jessie-backports; urgency=medium
 
   * Rebuild for jessie-backports.

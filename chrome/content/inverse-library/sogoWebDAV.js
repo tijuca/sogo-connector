@@ -204,7 +204,17 @@ sogoWebDAV.prototype = {
 
         /* If set too early, the method can change to "PUT" when initially set to "PROPFIND"... */
         httpChannel.requestMethod = method;
+	/* PARCHE SARENET*/
+        if (method == "PUT")
+        {
+            this.synchronous = true;
+        }
 
+        if (method == "DELETE")
+        {
+            this.synchronous = true;
+        }
+        /* PARCHE SARENET*/
         if (this.synchronous) {
             let inStream = httpChannel.open();
             let byteStream = Components.classes["@mozilla.org/binaryinputstream;1"]
@@ -342,7 +352,8 @@ sogoWebDAV.prototype = {
                         dump("NOTICE: uploading modified vcard without etag\n");
 	                this._sendHTTPRequest(operation,
                                               parameters.data,
-                                              { "content-type": parameters.contentType });
+					      { "content-type": parameters.contentType,
+				              "If-None-Match": "*" });
                     }
                 }
 	    }
