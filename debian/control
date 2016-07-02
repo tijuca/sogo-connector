@@ -15,7 +15,8 @@ Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-mozext/sogo-connector.git;a
 
 Package: xul-ext-sogo-connector
 Architecture: all
-Depends: ${misc:Depends}, ${xpi:Depends}, iceowl-extension (>= 31~)
+Depends: ${misc:Depends}, ${xpi:Depends},
+ iceowl-extension (>= 31~) | lightning,
 Recommends: ${xpi:Recommends}
 Breaks: ${xpi:Breaks}
 Provides: ${xpi:Provides}
