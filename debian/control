@@ -7,7 +7,7 @@ Standards-Version: 3.9.6
 Build-Depends: debhelper (>= 9),
   icedove-dev (>= 24~),
   make (>=3.81~),
-  mozilla-devscripts (>= 0.32~),
+  mozilla-devscripts (>= 0.45.1~),
   python-ply
 Homepage: http://www.sogo.nu/
 Vcs-Git: git://anonscm.debian.org/pkg-mozext/sogo-connector.git
