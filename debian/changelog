@@ -1,3 +1,11 @@
+sogo-connector (31.0.3-1~bpo8+1) jessie-backports; urgency=medium
+
+  * Rebuild for jessie-backports.
+  * debian/control: adding Breaks on Icedove and Thunderbird
+                    manually (mozilla-devscripts isn't fixed yet)
+
+ -- Carsten Schoenert <c.schoenert@t-online.de>  Sat, 02 Jul 2016 20:56:38 +0200
+
 sogo-connector (31.0.3-1) unstable; urgency=medium
 
   * debian/control: increase B-D for mozilla-devscripts
